@@ -1,0 +1,98 @@
+
+1. 查询所有
+  路径： http://localhost:3000/student/findAll
+  参数： 无
+  返回值示例：  
+    [{
+      "id" : 2
+      "name" : "larry"
+      "gender" : "男"
+      "birth" :"1993-02-28T16:00:00.000Z"
+      "class_id" : 1
+    }]
+2. 通过id查找
+  路径： http://localhost:3000/student/findById
+  参数： ?id=1 (GET方式)
+  返回值示例：  
+    {
+      "id" : 2
+      "name" : "larry"
+      "gender" : "男"
+      "birth" :"1993-02-28T16:00:00.000Z"
+      "class_id" : 1
+    }
+3. 模糊查询
+  路径： http://localhost:3000/student/query/:keys
+  参数： 直接写入到路径中
+  返回值示例：  
+    [{
+      "id" : 2
+      "name" : "larry"
+      "gender" : "男"
+      "birth" :"1993-02-28T16:00:00.000Z"
+      "class_id" : 1
+    }]
+4. 批量删除
+  路径： http://localhost:3000/student/batchDelete
+  参数： [1,2] (post提交 数据类型Json格式)
+  返回值示例：  
+      对象：
+      成功：
+      {
+        fieldCount  0
+        affectedRows  1
+        insertId  0
+        serverStatus  2
+        warningCount  0
+        message "(Rows matched: 1  Changed: 0  Warnings: 0"
+        protocol41  true
+        changedRows 0
+      }
+      失败:
+      {
+        code  "ECONNREFUSED"
+        errno "ECONNREFUSED"
+        syscall "connect"
+        address "127.0.0.1"
+        port  3306
+        fatal true
+      }
+5. 保存
+  url:  http://localhost:3000/student/save
+  param:  
+    name
+    gender
+    birth
+    class_id
+    password
+
+
+--------------------选课模块------------------------
+1. 选课
+  url:  http://localhost:3000/sc/selectCourse
+  param:  
+    studentId   学生id
+    courseId    课程id
+
+2. 通过学生ID查询已经选课信息
+  url:  http://localhost:3000/sc/findSelectedCourseByStudentId 
+  param:
+    studentId   学生id
+  result:
+    [{
+      "s":{"id":2,"name":"larry","gender":"男","birth":"1993-02-28","class_id":1},
+      "c":{"id":2,"name":"html","credit":"2"},
+      "sc":{"id":6,"grade":58,"student_id":2,"course_id":2}
+    }]
+
+3. 取消选课
+  url:  http://localhost:3000/sc/cancelCourse
+  param:  
+    studentId   学生id
+    courseId    课程id
+
+4. 打分
+  url:  http://localhost:3000/sc/mark
+  param:  
+    id      选课ID
+    grade   分数
